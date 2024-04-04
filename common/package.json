@@ -1,0 +1,16 @@
+{
+	"name": "@maharshiv16/medium-clone-maharshi",
+	"version": "1.1.0",
+	"main": "dist/index.js",
+	"devDependencies": {},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"zod": "^3.22.4"
+	}
+}
