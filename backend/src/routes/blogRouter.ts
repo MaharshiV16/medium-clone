@@ -76,11 +76,23 @@ blogRouter.put("/", async (c) => {
 	}
 });
 
+// Todo: Add pagination
 blogRouter.get("/bulk", async (c) => {
 	const prisma = new PrismaClient({ datasourceUrl: c.env.DATABASE_URL }).$extends(withAccelerate());
 
 	try {
-		const posts = await prisma.post.findMany();
+		const posts = await prisma.post.findMany({
+			select: {
+				id: true,
+				content: true,
+				title: true,
+				author: {
+					select: {
+						name: true,
+					},
+				},
+			},
+		});
 		if (!posts) {
 			return c.json("Invalid Id");
 		}
@@ -90,7 +102,6 @@ blogRouter.get("/bulk", async (c) => {
 	}
 });
 
-// Todo: Add pagination
 blogRouter.get("/:id", async (c) => {
 	const id = c.req.param("id");
 	const prisma = new PrismaClient({ datasourceUrl: c.env.DATABASE_URL }).$extends(withAccelerate());
@@ -98,6 +109,16 @@ blogRouter.get("/:id", async (c) => {
 	try {
 		const post = await prisma.post.findUnique({
 			where: { id },
+			select: {
+				id: true,
+				title: true,
+				content: true,
+				author: {
+					select: {
+						name: true,
+					},
+				},
+			},
 		});
 		if (!post) {
 			return c.json("Invalid Id");
