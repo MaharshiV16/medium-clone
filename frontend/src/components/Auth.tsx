@@ -22,7 +22,7 @@ const Auth = ({ type }: { type: "signup" | "signin" }) => {
 			const res = await axios.post(`${BACKEND_URL}/api/v1/user/signup`, signupInputs);
 			const jwt = res.data.jwt;
 			localStorage.setItem("authorization", jwt);
-			navigate("/api/v1/blog/bulk");
+			navigate("/blogs");
 		} catch (error) {
 			alert();
 		}
